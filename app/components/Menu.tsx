@@ -10,7 +10,7 @@ export default function Menu() {
 
   // Memorizamos a lista para não recriar o array em todo render
   const menuItems = useMemo(() => [
-    { href: "/dashboard", icon: <Icons.Dashboard />, label: "Dashboard" },
+    { href: "/dashboard/admin", icon: <Icons.Dashboard />, label: "Dashboard" },
     { href: "/alunos", icon: <Icons.Alunos />, label: "Alunos" },
     { href: "/professores", icon: <Icons.Professores />, label: "Professores" },
     { href: "/turmas", icon: <Icons.Turmas />, label: "Turmas" },

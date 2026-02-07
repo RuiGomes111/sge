@@ -22,14 +22,14 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <header className="h-16 bg-white border-b border-zinc-200 flex items-center justify-between px-4 md:px-8 shrink-0 dark:bg-zinc-900 dark:border-zinc-800 transition-colors duration-200">
+    <header className="h-16 bg-white text-black border-b border-gray-300 flex items-center justify-between px-4 md:px-8 shrink-0 transition-colors duration-200 shadow-sm">
       
       {/* LADO ESQUERDO: Título fixo com min-width para evitar que o texto 'pule' */}
       <div className="flex items-center gap-4 min-w-37.5">
         <button className="md:hidden p-2 hover:bg-zinc-100 rounded-lg transition-colors">
           <HiMenuAlt3 className="text-2xl text-zinc-600" />
         </button>
-        <h2 className="text-lg md:text-xl font-bold text-[#24354C] dark:text-white truncate">
+        <h2 className="text-lg md:text-xl font-bold text-[#24354C]  truncate">
           {currentTitle}
         </h2>
       </div>
@@ -43,7 +43,7 @@ export default function Navbar() {
           <input 
             type="text" 
             placeholder="Pesquisar..." 
-            className="w-full pl-10 pr-4 py-2 bg-zinc-100 border-none rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:bg-zinc-800 dark:text-white"
+            className="w-full pl-10 pr-4 py-2  border-none rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none bg-zinc-400 text-white"
           />
         </div>
 
@@ -53,15 +53,15 @@ export default function Navbar() {
             <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
           </button>
 
-          <div className="hidden sm:block h-8 w-[px] bg-zinc-200 dark:bg-zinc-700"></div>
+          <div className="hidden sm:block h-8 w-[px] "></div>
 
           <div className="flex items-center gap-3">
             <div className="text-right hidden sm:block leading-tight">
-              <p className="text-sm font-semibold text-gray-800 dark:text-zinc-200">Admin Tech</p>
+              <p className="text-sm font-semibold text-gray-800">Admin Tech</p>
               <p className="text-[11px] text-gray-500">Administrador</p>
             </div>
             {/* Avatar com tamanho fixo e will-change para suavidade */}
-            <div className="w-10 h-10 bg-[#24354C] rounded-full flex items-center justify-center text-white font-bold cursor-pointer will-change-transform hover:brightness-110 shadow-sm shrink-0">
+            <div className="w-10 h-10 bg-[#103d79] rounded-full flex items-center justify-center text-white font-bold cursor-pointer will-change-transform hover:brightness-110 shadow-sm shrink-0">
               AT
             </div>
           </div>
