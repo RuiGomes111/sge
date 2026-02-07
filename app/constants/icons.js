@@ -6,6 +6,7 @@ import { FaSchool, FaRegCalendarDays, FaRegMessage } from "react-icons/fa6";
 import { HiMenuAlt3, HiChevronLeft } from "react-icons/hi";
 import { CiCalendar } from "react-icons/ci";
 
+
 export  const Icons = {
   Dashboard: MdOutlineDashboard,
   Alunos: BsPeople,
@@ -21,5 +22,6 @@ export  const Icons = {
   Busca: IoSearchOutline,
   Frequencia: MdOutlineNoteAlt,
   Atividades: CiCalendar,
+
 };
 
