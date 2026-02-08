@@ -26,13 +26,13 @@ export default function Menu() {
         ${isCollapsed ? "w-20" : "w-64"}`}
     >
       <header className="flex items-center gap-2 border-b border-gray-600 pb-4 mb-6 h-12 overflow-hidden">
-        <div className="shrink-0">
+        <Link href={"/"} className="shrink-0">
            <Icons.Professores className="text-3xl text-[#24354C] bg-white rounded p-1" />
-        </div>
+        </Link>
         {!isCollapsed && (
-          <h1 className="text-2xl font-bold tracking-tight whitespace-nowrap opacity-100 transition-opacity duration-300">
+          <Link href={"/"} className="text-2xl font-bold tracking-tight whitespace-nowrap opacity-100 transition-opacity duration-300">
             TechSchool
-          </h1>
+          </Link>
         )}
       </header>
 

@@ -1,0 +1,119 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  ADMIN
+  PROFESSOR
+  ALUNO
+}
+
+enum Trimestre {
+  PRIMEIRO
+  SEGUNDO
+  TERCEIRO
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role
+  createdAt DateTime @default(now())
+  aluno     Aluno?
+  professor Professor?
+}
+
+model Aluno {
+  id        String   @id @default(uuid())
+  nome      String
+  idade     Int
+  turmaNome String
+  cursoNome String
+  bilhete   String
+  createdAt DateTime @default(now())
+  userId    String?  @unique
+  user      User?    @relation(fields: [userId], references: [id])
+  turmaId   String?
+  turma     Turma?   @relation(fields: [turmaId], references: [id])
+  notas     Nota[]
+}
+
+model AnoLetivo {
+  id        String   @id @default(uuid())
+  ano       String
+  ativo     Boolean  @default(false)
+  turmas    Turma[]
+  createdAt DateTime @default(now())
+}
+
+model Curso {
+  id        String   @id @default(uuid())
+  nome      String
+  turmas    Turma[]
+  createdAt DateTime @default(now())
+}
+
+model Disciplina {
+  id          String   @id @default(uuid())
+  nome        String
+  professores ProfessorDisciplina[]
+  notas       Nota[]
+  createdAt   DateTime @default(now())
+}
+
+model Turma {
+  id              String           @id @default(uuid())
+  nome            String
+  cursoId         String
+  curso           Curso            @relation(fields: [cursoId], references: [id])
+  anoLetivoId     String
+  anoLetivo       AnoLetivo        @relation(fields: [anoLetivoId], references: [id])
+  alunos          Aluno[]
+  professorTurmas ProfessorTurma[]
+  createdAt       DateTime         @default(now())
+}
+
+model Professor {
+  id                   String                @id @default(uuid())
+  userId               String                @unique
+  user                 User                  @relation(fields: [userId], references: [id])
+  professorTurmas      ProfessorTurma[]
+  professorDisciplinas ProfessorDisciplina[]
+  createdAt            DateTime              @default(now())
+}
+
+model ProfessorTurma {
+  id          String    @id @default(uuid())
+  professorId String
+  professor   Professor @relation(fields: [professorId], references: [id])
+  turmaId     String
+  turma       Turma     @relation(fields: [turmaId], references: [id])
+}
+
+model ProfessorDisciplina {
+  id           String     @id @default(uuid())
+  professorId  String
+  professor    Professor  @relation(fields: [professorId], references: [id])
+  disciplinaId String
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
+}
+
+model Nota {
+  id           String    @id @default(uuid())
+  valor        Float
+  trimestre    Trimestre
+  alunoId      String
+  aluno        Aluno     @relation(fields: [alunoId], references: [id])
+  disciplinaId String
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
+  createdAt    DateTime  @default(now())
+}
