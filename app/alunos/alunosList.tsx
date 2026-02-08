@@ -1,14 +1,16 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoSearchOutline,IoPencilOutline } from "react-icons/io5";
 
 export default function AlunosList({ initialAlunos }: { initialAlunos: any[] }) {
   const [search, setSearch] = useState("");
+  const router= useRouter();
 
   const alunosFiltrados = initialAlunos.filter((aluno) =>
     aluno.bilhete.includes(search)
   );
+
 
   return (
     <>
@@ -70,8 +72,9 @@ export default function AlunosList({ initialAlunos }: { initialAlunos: any[] }) 
               <button 
                 className="p-2 text-blue-600 hover:bg-blue-600 hover:text-white rounded-lg transition-all duration-300 shadow-sm hover:shadow-md bg-white border border-blue-100"
                 title="Editar Aluno"
+                onClick={()=> router.push(`/alunos/editar/${aluno.id}`)}
               >
-                <IoPencilOutline size={18} />
+                <IoPencilOutline size={18}/>
               </button>
               {/* Sugestão: adicione um botão de apagar aqui depois se precisar */}
             </div>
