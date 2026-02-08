@@ -24,7 +24,7 @@ export default function Cards() {
               className="px-4 py-2 w-full border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white"
             />
             <Link
-              href="/AddAlunos"
+              href="/"
               className="flex items-center justify-center gap-2 bg-[#1B4F98] text-white px-5 py-2 rounded-lg font-semibold hover:bg-[#153e77] transition-all shadow-sm active:scale-95 whitespace-nowrap"
             >
               <span>+ Novo Professor</span>

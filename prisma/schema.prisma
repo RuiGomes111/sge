@@ -38,7 +38,7 @@ model Aluno {
   idade     Int
   turmaNome String
   cursoNome String
-  bilhete   String
+  bilhete   String   @unique
   createdAt DateTime @default(now())
   userId    String?  @unique
   user      User?    @relation(fields: [userId], references: [id])

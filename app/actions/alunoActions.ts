@@ -6,16 +6,27 @@ import { redirect } from "next/navigation";
 
 export async function criarAluno(formData: FormData) {
   const nome = formData.get("nome") as string;
-  const idade = Number(formData.get("idade"));
+  const dataNascimentoRaw = formData.get("idade") as string; 
   const turma = formData.get("turma") as string;
   const curso = formData.get("curso") as string;
   const bilhete = formData.get("bilhete") as string;
+
+  // Lógica para converter data em idade numérica
+  const nascimento = new Date(dataNascimentoRaw);
+  const hoje = new Date();
+  let idadeCalculada = hoje.getFullYear() - nascimento.getFullYear();
+  
+  // Ajuste fino: verifica se já fez anos este ano
+  const m = hoje.getMonth() - nascimento.getMonth();
+  if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+      idadeCalculada--;
+  }
 
   try {
     await prisma.aluno.create({
       data: { 
         nome, 
-        idade, 
+        idade: idadeCalculada, 
         turmaNome: turma, 
         cursoNome: curso, 
         bilhete 
@@ -23,7 +34,7 @@ export async function criarAluno(formData: FormData) {
     });
   } catch (error) {
     console.error("Erro ao criar aluno:", error);
-    throw new Error("Falha ao salvar no banco de dados.");
+    return { error: "Falha ao salvar no banco de dados." };
   }
 
   revalidatePath("/alunos");

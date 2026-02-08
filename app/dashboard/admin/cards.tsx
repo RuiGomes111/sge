@@ -1,5 +1,6 @@
 import { Icons } from "../../constants/icons";
 import { ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { prisma } from "../../lib/prisma";
 const TrendBadge = ({ value, isUp }: { value: number; isUp: boolean }) => {
   return (
     <div
@@ -12,19 +13,26 @@ const TrendBadge = ({ value, isUp }: { value: number; isUp: boolean }) => {
     </div>
   );
 };
-export default function Cards() {
+export default async function Cards() {
     const cardStyle =
     "bg-white p-4 rounded-lg shadow border border-gray-200 hover:shadow-md transition-shadow flex flex-col relative p-10";
   const cardIconStyle =
     "text-4xl p-2 bg-[#DDE5F0] text-[#0c3e8a] rounded absolute top-4 right-4";
 
+    const alunos = await prisma.aluno.findMany({
+        orderBy: { createdAt: 'desc' }
+      });
+
+      const porcentual = (alunos.length / 500) * 100;      
+      const taxa= porcentual > 250? <TrendBadge value={porcentual} isUp={true}/>: <TrendBadge value={porcentual} isUp={false}/>
+      
     return (
         <>
             <div className={cardStyle}>
           <p className="text-gray-500">Total de Alunos</p>
-          <p className="text-2xl font-bold">150</p>
+          <p className="text-2xl font-bold">{alunos.length}</p>
           <Icons.Alunos className={cardIconStyle} />
-          <TrendBadge value={12} isUp={true} />
+          {taxa}
         </div>
         <div className={cardStyle}>
           <p className="text-gray-500">Total de Professores</p>

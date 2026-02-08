@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-import { IoNotificationsOutline, IoSearchOutline } from "react-icons/io5";
+import { IoNotificationsOutline } from "react-icons/io5";
 import { HiMenuAlt3 } from "react-icons/hi";
 
 export default function Navbar() {
@@ -22,9 +22,8 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <header className="h-16 bg-white text-black border-b border-gray-300 flex items-center justify-between px-4 md:px-8 shrink-0 transition-colors duration-200 shadow-sm">
-      
-      {/* LADO ESQUERDO: Título fixo com min-width para evitar que o texto 'pule' */}
+    <header className="h-16 bg-white text-black border-b border-gray-300 flex items-center justify-between px-4 md:px-8 shrink-0 transition-colors duration-200 shadow-sm">      
+     
       <div className="flex items-center gap-4 min-w-37.5">
         <button className="md:hidden p-2 hover:bg-zinc-100 rounded-lg transition-colors">
           <HiMenuAlt3 className="text-2xl text-zinc-600" />
@@ -34,20 +33,10 @@ export default function Navbar() {
         </h2>
       </div>
 
-      {/* LADO DIREITO: Elementos com shrink-0 para não sofrerem deformação */}
-      <div className="flex items-center gap-3 md:gap-6 shrink-0">
-        
-        {/* Busca: Usando container fixo para evitar redimensionamento do input */}
-        <div className="relative hidden lg:block w-48 xl:w-80">
-          <IoSearchOutline className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
-          <input 
-            type="text" 
-            placeholder="Pesquisar..." 
-            className="w-full pl-10 pr-4 py-2  border-none rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none bg-zinc-400 text-white"
-          />
-        </div>
-
-        <div className="flex items-center gap-2 md:gap-4">
+    
+      <div className="flex items-center gap-3 md:gap-6 shrink-0">      
+       
+          <div className="flex items-center gap-2 md:gap-4">
           <button className="relative p-2 text-zinc-500 hover:bg-zinc-50 rounded-full transition-transform active:scale-95">
             <IoNotificationsOutline className="text-2xl" />
             <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
