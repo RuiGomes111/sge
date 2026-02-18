@@ -40,7 +40,7 @@ export default async function AlunosPage() {
           
           <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-6 sm:text-right border-t sm:border-t-0 pt-4 sm:pt-0">
             <div>
-              <span className={`text-3xl font-black block ${alunos.length > 500 ? 'text-red-600' : 'text-green-600'}`}>
+              <span className={`text-3xl font-black block ${alunos.length > 500 ? 'text-green-600' : 'text-red-600'}`}>
                 {percentualOcupacao.toFixed(1)}%
               </span>
               <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400">

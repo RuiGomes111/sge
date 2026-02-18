@@ -6,7 +6,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  //directUrl = env("DIRECT_URL")
 }
 
 enum Role {
@@ -41,33 +41,33 @@ model Aluno {
   bilhete   String   @unique
   createdAt DateTime @default(now())
   userId    String?  @unique
-  user      User?    @relation(fields: [userId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   turmaId   String?
   turma     Turma?   @relation(fields: [turmaId], references: [id])
   notas     Nota[]
 }
 
 model AnoLetivo {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   ano       String
-  ativo     Boolean  @default(false)
+  ativo     Boolean   @default(false)
   turmas    Turma[]
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
 }
 
 model Curso {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   nome      String
   turmas    Turma[]
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
 }
 
 model Disciplina {
-  id          String   @id @default(uuid())
+  id          String                @id @default(uuid())
   nome        String
   professores ProfessorDisciplina[]
   notas       Nota[]
-  createdAt   DateTime @default(now())
+  createdAt   DateTime              @default(now())
 }
 
 model Turma {
@@ -85,7 +85,9 @@ model Turma {
 model Professor {
   id                   String                @id @default(uuid())
   userId               String                @unique
-  user                 User                  @relation(fields: [userId], references: [id])
+  user                 User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bilhete              String               @unique
+  idade                Int
   professorTurmas      ProfessorTurma[]
   professorDisciplinas ProfessorDisciplina[]
   createdAt            DateTime              @default(now())
@@ -94,26 +96,26 @@ model Professor {
 model ProfessorTurma {
   id          String    @id @default(uuid())
   professorId String
-  professor   Professor @relation(fields: [professorId], references: [id])
+  professor   Professor @relation(fields: [professorId], references: [id], onDelete: Cascade)
   turmaId     String
-  turma       Turma     @relation(fields: [turmaId], references: [id])
+  turma       Turma     @relation(fields: [turmaId], references: [id], onDelete: Cascade)
 }
 
 model ProfessorDisciplina {
   id           String     @id @default(uuid())
   professorId  String
-  professor    Professor  @relation(fields: [professorId], references: [id])
+  professor    Professor  @relation(fields: [professorId], references: [id], onDelete: Cascade)
   disciplinaId String
-  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id], onDelete: Cascade)
 }
 
 model Nota {
-  id           String    @id @default(uuid())
+  id           String     @id @default(uuid())
   valor        Float
   trimestre    Trimestre
   alunoId      String
-  aluno        Aluno     @relation(fields: [alunoId], references: [id])
+  aluno        Aluno      @relation(fields: [alunoId], references: [id], onDelete: Cascade)
   disciplinaId String
-  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id])
-  createdAt    DateTime  @default(now())
+  disciplina   Disciplina @relation(fields: [disciplinaId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
 }

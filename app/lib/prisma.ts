@@ -1,12 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 
-// Impede a criação de múltiplas instâncias do Prisma Client em desenvolvimento
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
 export const prisma =
-  globalForPrisma.prisma ||
+  globalForPrisma.prisma ??
   new PrismaClient({
-    log: ["query"], // Opcional: mostra as queries no terminal para debug
+    log: ["error"], // Mantém logs de erro para ajudar no debug
   });
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
