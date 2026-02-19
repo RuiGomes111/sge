@@ -64,6 +64,14 @@ export async function editarProfessor(formData: FormData) {
   const id = formData.get("id") as string; // ID do Professor
   const name = formData.get("nome") as string;
   const email = formData.get("email") as string;
+  const dataNascimentoRaw = formData.get("idade") as string;  
+  const bilhete = formData.get("bilhete") as string;
+
+  
+ // Lógica para converter data em idade numérica
+  const nascimento = new Date(dataNascimentoRaw);
+  const hoje = new Date();
+  const idadeCalculada = hoje.getFullYear() - nascimento.getFullYear();
 
   if (!id || !name || !email) {
     return { error: "Dados insuficientes para atualização." };
@@ -71,7 +79,7 @@ export async function editarProfessor(formData: FormData) {
 
   try {
     await prisma.professor.update({
-      where: { id },
+      where: { id },      
       data: {
         user: {
           update: {
@@ -79,6 +87,8 @@ export async function editarProfessor(formData: FormData) {
             email,
           },
         },
+        idade: idadeCalculada,
+        bilhete
       },
     });
   } catch (error) {

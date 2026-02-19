@@ -3,11 +3,7 @@ import { editarAluno } from "../../../actions/alunoActions";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-export default async function EditarAluno({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function EditarAluno({ params,}: {  params: Promise<{ id: string }>;}) {
   const resolvedParams = await params;
   const id = resolvedParams.id;
 

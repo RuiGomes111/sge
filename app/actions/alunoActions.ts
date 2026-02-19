@@ -72,7 +72,7 @@ export async function editarAluno(formData: FormData) {
       },
     });
   } catch (error) {
-    console.error("Erro ao criar aluno:", error);
+    console.error("Erro ao editar aluno:", error);
     return { error: "Falha ao salvar no banco de dados." };
   }
 
